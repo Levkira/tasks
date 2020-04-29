@@ -1,12 +1,17 @@
 import React from 'react';
 import './App.css';
-import BlogV2 from './tasks/week-4/blog-v2/Blog';
+import { Provider } from 'react-redux';
+import Shop from './tasks/week-5/Shop';
+import store from './tasks/week-5/redux/store';
 
 function App() {
   return (
-    <div className="App">
-        <BlogV2 />
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Shop />
+      </div>
+    </Provider>
+
   );
 }
 
