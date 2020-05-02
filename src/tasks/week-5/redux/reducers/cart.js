@@ -15,10 +15,14 @@ export default function cartReducer(state = [], action) {
             }
         case REMOVE_FROM_CART:
             return state.filter(product => action.payload !== product.id)
-        case CHANGE_AMOUNT:
+        case CHANGE_AMOUNT: 
             return state.map(product =>
                 product.id === action.id ?
-                    { ...product, amount: product.amount++ } : product
+                (product.amount <= action.amount) ?
+                   ({ ...product, amount: action.amount })
+                :
+                    ({ ...product, amount: action.amount })
+                   : product    
             );
         default: return state;
     }

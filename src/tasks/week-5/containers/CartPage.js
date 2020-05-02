@@ -15,11 +15,11 @@ function CartPage({ inCart, removeFromCart, changeAmount, products }) {
                 product={newProduct}
                 amount={product.amount}
                 onRemove={() => removeFromCart(newProduct.id)}
-                onChangeAmountPlus={() => changeAmount(newProduct.id, product.amount++)}
+                onChangeAmountPlus={() => 
+                    changeAmount(newProduct.id, product.amount + 1 )}
                 onChangeAmountMinus={() =>
                     changeAmount(newProduct.id,
-                        (product.amount === 1) ? 1 : product.amount--)
-                }
+                        (product.amount === 1) ? 1 : product.amount - 1 )}
             />
         )
     });
