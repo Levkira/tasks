@@ -26,7 +26,7 @@ export function fetchGists() {
     return dispatch => {
         dispatch(fetchGistsRequests())
         axios.get(`https://api.github.com/gists/public`)
-            .then(function (response) {
+            .then(response => {
                 const resObj = response.data.reduce(function (prev, next) {
                     return {
                         ...prev,
@@ -37,7 +37,6 @@ export function fetchGists() {
                 dispatch(fetchGistsSuccess(res));
             })
     }
-
 }
 
 export function fetchGistContent(item) {
@@ -45,7 +44,6 @@ export function fetchGistContent(item) {
         dispatch(fetchContentRequests())
         axios.get(item.raw_url)
             .then(response => {
-                console.log(typeof response.data)
                 dispatch(fetchContent(response.data))
             })
     };

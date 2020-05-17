@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { List } from 'semantic-ui-react';
 import { fetchGists } from '../redux/actions/list';
 import ListItem from './ListItem';
-const shortid = require('shortid');
 
 export default function GistsList() {
     const dispatch = useDispatch();
@@ -17,7 +16,7 @@ export default function GistsList() {
         <List divided relaxed>
             {isLoading && <span>Loading...</span>}
             {items.map(item =>
-                <ListItem item={item} key={shortid.generate()}/>
+                <ListItem item={item} key={item.filename}/>
             )}
         </List>
     )
