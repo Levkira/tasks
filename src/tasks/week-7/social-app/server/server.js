@@ -62,7 +62,7 @@ app.get('/api/me', requireAuth, async (req, res) => {
 })
 
 
-app.get('/api/posts', async (req, res) => {
+app.get('/api/posts',requireAuth, async (req, res) => {
     const db = await getDb();
     const posts = await db.collection('posts').aggregate([
         { $lookup: 
@@ -77,7 +77,7 @@ app.get('/api/posts', async (req, res) => {
     res.json(posts)
 });
 
-app.post('/api/posts', async (req, res) => {
+app.post('/api/posts',requireAuth, async (req, res) => {
     const { id, title, content, author_id } = req.body;
     const post = {
         _id: id,
@@ -90,7 +90,7 @@ app.post('/api/posts', async (req, res) => {
     res.send(post);
 });
 
-app.delete('/api/posts', async (req, res) => {
+app.delete('/api/posts',requireAuth, async (req, res) => {
     const db = await getDb();
     const post = await db.collection('posts').findOne({ _id: ObjectId(req.body._id) });
     if (!post) {
@@ -100,13 +100,13 @@ app.delete('/api/posts', async (req, res) => {
     res.send({ message: 'Post was deleted' })
 });
 
-app.get('/api/posts/:id', async (req, res) => {
+app.get('/api/posts/:id',requireAuth, async (req, res) => {
     const db = await getDb();
     const post = await db.collection('posts').findOne({ _id: ObjectId(req.params.id) });
     res.send(post);
 });
 
-app.get('/api/comments', async (req, res) => {
+app.get('/api/comments',requireAuth, async (req, res) => {
     const db = await getDb();
     const comments = await db.collection('comments').aggregate([
         { $lookup: 
@@ -121,7 +121,7 @@ app.get('/api/comments', async (req, res) => {
     res.send(comments);
 });
 
-app.post('/api/comments', async (req, res) => {
+app.post('/api/comments',requireAuth, async (req, res) => {
     const {id, title, text, post_id, author_id } = req.body;
     const comment = {
         _id: id,
@@ -135,7 +135,7 @@ app.post('/api/comments', async (req, res) => {
     res.send(comment);
 });
 
-app.delete('/api/comments', async (req, res) => {
+app.delete('/api/comments',requireAuth, async (req, res) => {
     const db = await getDb();
     const comment = await db.collection('comments').findOne({ _id: req.body._id });
     if (!comment) {
@@ -146,7 +146,7 @@ app.delete('/api/comments', async (req, res) => {
 });
 
 
-app.get('/api/comments/:id', async (req, res) => {
+app.get('/api/comments/:id',requireAuth, async (req, res) => {
     const db = await getDb();
     const comment = await db.collection('comments').findOne({ _id: ObjectId(req.params.id) });
     res.send(comment);
